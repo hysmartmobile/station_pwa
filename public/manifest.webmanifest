@@ -1,0 +1,18 @@
+{
+  "id": "/",
+  "name": "HySmart Station — Fuel Operations",
+  "short_name": "HySmart",
+  "description": "Manage filling station operations, sales, stock, shifts and accountability.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4f6f3",
+  "theme_color": "#101d19",
+  "categories": ["business", "productivity"],
+  "icons": [
+    { "src": "/icons/hysmart-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/hysmart-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/hysmart-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

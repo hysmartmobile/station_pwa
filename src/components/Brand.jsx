@@ -1,0 +1,1 @@
+import {Fuel} from 'lucide-react'; import {Link} from 'react-router-dom'; export default function Brand(){return <Link className="brand" to="/"><span className="brand-icon"><Fuel size={22}/></span><span><b>HySmart <em>Station</em></b><small>FUEL BUSINESS CONTROL</small></span></Link>}

@@ -1,0 +1,1 @@
+import {Info,AlertTriangle,CheckCircle2} from 'lucide-react';export default function Notice({children,type='info'}){const I=type==='error'?AlertTriangle:type==='success'?CheckCircle2:Info;return <div role="status" className={`notice notice-${type}`}><I size={17}/><span>{children}</span></div>}
