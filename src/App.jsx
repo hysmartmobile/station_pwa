@@ -6,33 +6,37 @@ import {
   Routes,
   useNavigate,
 } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { LockKeyhole, ShieldCheck, ShieldAlert } from 'lucide-react';
 
 import { useAuth } from './features/auth/AuthContext';
 import AppLayout from './layouts/AppLayout';
 
-import LoginPage from './pages/LoginPage';
-import ResetPasswordPage from './pages/ResetPasswordPage';
-import AccountSecurityPage from './pages/AccountSecurityPage';
-import InvitePage from './pages/InvitePage';
-import OverviewPage from './pages/OverviewPage';
-import StationsPage from './pages/StationsPage';
-import TeamPage from './pages/TeamPage';
-import AttendancePage from './pages/AttendancePage';
-import InventoryPage from './pages/InventoryPage';
-import SalesPage from './pages/SalesPage';
-import ControlsPage from './pages/ControlsPage';
-import CompanySetupPage from './pages/CompanySetupPage';
-import GettingStartedPage from './pages/GettingStartedPage';
-import UserGuidePage from './pages/UserGuidePage';
-import GovernancePage from './pages/GovernancePage';
-import BillingPage from './pages/BillingPage';
-import ReportsPage from './pages/ReportsPage';
-import PayrollPage from './pages/PayrollPage';
-import AccountabilityPage from './pages/AccountabilityPage';
-import AlertsPage from './pages/AlertsPage';
-import MessagesPage from './pages/MessagesPage';
+const LoginPage = lazy(() => import('./pages/LoginPage.jsx'));
+const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage.jsx'));
+const AccountSecurityPage = lazy(() => import('./pages/AccountSecurityPage.jsx'));
+const InvitePage = lazy(() => import('./pages/InvitePage.jsx'));
+const OverviewPage = lazy(() => import('./pages/OverviewPage.jsx'));
+const StationsPage = lazy(() => import('./pages/StationsPage.jsx'));
+const TeamPage = lazy(() => import('./pages/TeamPage.jsx'));
+const AttendancePage = lazy(() => import('./pages/AttendancePage.jsx'));
+const InventoryPage = lazy(() => import('./pages/InventoryPage.jsx'));
+const SalesPage = lazy(() => import('./pages/SalesPage.jsx'));
+const ControlsPage = lazy(() => import('./pages/ControlsPage.jsx'));
+const CompanySetupPage = lazy(() => import('./pages/CompanySetupPage.jsx'));
+const GettingStartedPage = lazy(() => import('./pages/GettingStartedPage.jsx'));
+const UserGuidePage = lazy(() => import('./pages/UserGuidePage.jsx'));
+const GovernancePage = lazy(() => import('./pages/GovernancePage.jsx'));
+const BillingPage = lazy(() => import('./pages/BillingPage.jsx'));
+const ReportsPage = lazy(() => import('./pages/ReportsPage.jsx'));
+const PayrollPage = lazy(() => import('./pages/PayrollPage.jsx'));
+const AccountabilityPage = lazy(() => import('./pages/AccountabilityPage.jsx'));
+const AlertsPage = lazy(() => import('./pages/AlertsPage.jsx'));
+const MessagesPage = lazy(() => import('./pages/MessagesPage.jsx'));
+const AdvancedOperationsPage = lazy(() => import('./pages/AdvancedOperationsPage.jsx'));
+const CompanySettingsPage = lazy(() => import('./pages/CompanySettingsPage.jsx'));
+const SupportPage = lazy(() => import('./pages/SupportPage.jsx'));
+const CreatorDashboardPage = lazy(() => import('./pages/CreatorDashboardPage.jsx'));
 import Notice from './components/Notice';
 import InstallAppButton from './components/InstallAppButton';
 import AdvancedOperationsPage from './pages/AdvancedOperationsPage';
@@ -257,6 +261,13 @@ export default function App() {
         </div>
       )}
 
+      <Suspense
+        fallback={(
+          <div className="loading-screen" role="status" aria-live="polite">
+            Loading workspace…
+          </div>
+        )}
+      >
       <Routes>
         {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
@@ -325,6 +336,7 @@ export default function App() {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Suspense>
 
       {trialExpired && (
         <div className="modal-backdrop trial-lock-backdrop">

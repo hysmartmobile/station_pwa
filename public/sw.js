@@ -1,12 +1,27 @@
 /* HySmart Station PWA service worker. Never cache API, auth, or business data. */
 const CACHE_PREFIX = 'hysmart-static-';
-const CACHE_NAME = `${CACHE_PREFIX}v2.26.0`;
+const CACHE_NAME = `${CACHE_PREFIX}v2.27.0`;
 const APP_SHELL = ['/','/index.html','/manifest.webmanifest','/icons/hysmart-192.png','/icons/hysmart-512.png','/icons/hysmart-maskable-512.png'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(APP_SHELL);
+
+    // Precache every generated route chunk so lazy-loaded screens remain
+    // available after the first successful online installation.
+    try {
+      const manifestResponse = await fetch('/asset-manifest.json', { cache: 'no-store' });
+      if (manifestResponse.ok) {
+        const manifest = await manifestResponse.json();
+        const assets = Array.isArray(manifest.assets) ? manifest.assets : [];
+        if (assets.length) await cache.addAll(assets);
+      }
+    } catch (error) {
+      // Keep the app shell installable if an optional asset-manifest fetch fails.
+      console.warn('HySmart offline asset precache was incomplete:', error);
+    }
+
     await self.skipWaiting();
   })());
 });
