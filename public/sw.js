@@ -1,6 +1,6 @@
 /* HySmart Station PWA service worker. Never cache API, auth, or business data. */
 const CACHE_PREFIX = 'hysmart-static-';
-const CACHE_NAME = `${CACHE_PREFIX}v2.25.3`;
+const CACHE_NAME = `${CACHE_PREFIX}v2.26.0`;
 const APP_SHELL = ['/','/index.html','/manifest.webmanifest','/icons/hysmart-192.png','/icons/hysmart-512.png','/icons/hysmart-maskable-512.png'];
 
 self.addEventListener('install', (event) => {

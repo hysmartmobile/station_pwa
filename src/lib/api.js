@@ -1,14 +1,6 @@
-const configuredBase = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:3001';
-// Accept a host, /api, or legacy /api/v1 base URL without ever creating
-// duplicated paths such as /api/v1/api/me. This API currently mounts routes
-// under /api (not /api/v1), so normalize every configuration to that root.
-function normalizeApiBase(value) {
-  const trimmed = String(value || '').trim().replace(/\/+$/, '');
-  const withoutLegacyVersion = trimmed.replace(/\/api\/v1$/i, '').replace(/\/v1$/i, '');
-  const withoutApi = withoutLegacyVersion.replace(/\/api$/i, '');
-  return `${withoutApi}/api`;
-}
-const BASE = normalizeApiBase(configuredBase);
+const configuredBase = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const trimmedBase = configuredBase.replace(/\/+$/, '');
+const BASE = /\/api$/i.test(trimmedBase) ? trimmedBase : `${trimmedBase}/api`;
 
 export async function apiRequest(path, { token, method = 'GET', body, signal } = {}) {
   const response = await fetch(`${BASE}${path}`, {
