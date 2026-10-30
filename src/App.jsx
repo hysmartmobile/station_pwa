@@ -39,10 +39,6 @@ const SupportPage = lazy(() => import('./pages/SupportPage.jsx'));
 const CreatorDashboardPage = lazy(() => import('./pages/CreatorDashboardPage.jsx'));
 import Notice from './components/Notice';
 import InstallAppButton from './components/InstallAppButton';
-import AdvancedOperationsPage from './pages/AdvancedOperationsPage';
-import CompanySettingsPage from './pages/CompanySettingsPage';
-import SupportPage from './pages/SupportPage';
-import CreatorDashboardPage from './pages/CreatorDashboardPage';
 
 import { apiRequest } from './lib/api';
 

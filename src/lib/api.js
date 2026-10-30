@@ -1,8 +1,21 @@
-const configuredBase = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const trimmedBase = configuredBase.replace(/\/+$/, '');
-const BASE = /\/api$/i.test(trimmedBase) ? trimmedBase : `${trimmedBase}/api`;
+const configuredBase =
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_URL ||
+  '';
+
+const trimmedBase = configuredBase.trim().replace(/\/+$/, '');
+
+const BASE = trimmedBase
+  ? (/\/api$/i.test(trimmedBase) ? trimmedBase : `${trimmedBase}/api`)
+  : (import.meta.env.DEV ? 'http://localhost:3001/api' : '');
 
 export async function apiRequest(path, { token, method = 'GET', body, signal } = {}) {
+  if (!BASE) {
+    throw new Error(
+      'The API URL is not configured for this deployment. Set VITE_API_URL before building the production app.'
+    );
+  }
+
   const response = await fetch(`${BASE}${path}`, {
     method, signal,
     headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
